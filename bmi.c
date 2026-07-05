@@ -17,13 +17,20 @@ int main()
     printf("ENTRE 25.0 Y 29.9...SOBREPESO \n ");
     printf("MAYOR DE 30..........OBESIDAD \n ");
     
-    if(imc < 18.5)
-    printf("Su imc indica BAJO PESO");
-    if(imc >= 18.5 && imc <= 24.9)
-    printf("Su imc es NORMAL");
-    if(imc >= 25 && imc <= 29.9)
-    printf("Su imc indica SOBREPESO");
-    if(imc >= 30)
-    printf("Su imc indica OBESIDAD");
+    if(imc < 18.5) 
+    {
+    printf("Su IMC indica BAJO PESO\n");
+    }
+    else if(imc <= 24.9)
+    {
+    printf("Su IMC es NORMAL\n");
+    }
+    else if(imc <= 29.9)
+    {
+    printf("Su IMC indica SOBREPESO\n");
+    }
+    else {
+    printf("Su IMC indica OBESIDAD\n");
+    }
     return 0;
 }
