@@ -1,4 +1,5 @@
-
+                                    //https://github.com/trapo2576/bmi.c/edit/main/tp8.c
+                                    //Carrizo Fernando 1R7
 #include <stdio.h>
 #include <stdlib.h>
 #define TAM 20
