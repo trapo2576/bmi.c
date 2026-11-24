@@ -4,6 +4,7 @@
 #include <unistd.h>           // parseo con cJSON
 #include "cJSON.h"
 #include <curl/curl.h>
+#include <time.h> // agregada para guardar 
 
 typedef struct string_buffer_s
 {
@@ -40,7 +41,25 @@ static size_t write_callback( void * buf, size_t size, size_t nmemb, void * data
 {
   return string_buffer_callback( buf, size, nmemb, data );
 }
+////////////////////////////////////////////////////////////////////
+static void guardar_mensaje(const char *nombre, double chat_id, const char *texto)   
+{
+  FILE *archivo = fopen("historial.txt", "a");
+  if (!archivo)
+  {
+    fprintf(stderr, "Error: no se pudo abrir historial.txt\n");
+    return;
+  }
 
+  time_t ahora = time(NULL);
+  struct tm *t = localtime(&ahora);
+  char fecha[32];
+  strftime(fecha, sizeof(fecha), "%Y-%m-%d %H:%M:%S", t);
+
+  fprintf(archivo, "[%s] [chat_id: %.0f] %s: %s\n", fecha, chat_id, nombre, texto);
+  fclose(archivo);
+}
+////////////////////////////////////////////////////////////////////
 int main( int argc, char * argv[] )
 {
   if (argc < 2)
@@ -121,6 +140,7 @@ int main( int argc, char * argv[] )
         if (text && text->valuestring && chat_id && first_name && first_name->valuestring)
         {
           printf("Mensaje recibido de %s: %s\n", first_name->valuestring, text->valuestring);
+          guardar_mensaje(first_name->valuestring, chat_id->valuedouble, text->valuestring);  // 
 
           if (strcmp(text->valuestring, "hola") == 0 || strcmp(text->valuestring, "Hola") == 0)
           {
